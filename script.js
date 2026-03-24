@@ -73,6 +73,12 @@ function draw() {
     }
 }
 
+/*
+Met a jour les coordonnées du serpent.
+Vérifie les collisions avec les murs et le corps du serpent, et gère la consommation de nourriture.
+Si le serpent mange la nourriture, le score augmente et une nouvelle nourriture est placée.
+Si le serpent entre en collision avec un mur ou lui-même, le jeu se termine.
+*/
 function update() {
     if (!gameRunning || gameOver) return;
     const head = {x: snake[0].x + direction.x, y: snake[0].y + direction.y};
@@ -93,11 +99,14 @@ function update() {
     }
 }
 
+/*
+La boucle de jeu principale qui met à jour et dessine le jeu à intervalles réguliers.
+*/
 function gameLoop() {
     update();
     draw();
     if (!gameOver) {
-        setTimeout(gameLoop, 100);
+        setTimeout(gameLoop, 500);
     }
 }
 
