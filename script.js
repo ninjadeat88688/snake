@@ -138,7 +138,7 @@ La boucle de jeu principale qui met à jour et dessine le jeu à intervalles ré
 */
 function gameLoop() {
     const now = Date.now();
-    if (now - lastUpdate > 100) {
+    if (now - lastUpdate > 150) {
         update();
         lastUpdate = now;
     }
