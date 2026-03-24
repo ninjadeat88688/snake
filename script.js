@@ -67,7 +67,7 @@ function draw() {
     if (gameOver) {
         ctx.fillStyle = '#ffffff';
         ctx.font = '40px Arial';
-        ctx.fillText('Game Over', canvas.width / 2 - 100, canvas.height / 2);
+        ctx.fillText('Game Over', canvas.width / 2 - 100, canvas.height / 2 - 100);
         startBtn.style.display = 'block';
         startBtn.textContent = 'Rejouer';
     }
