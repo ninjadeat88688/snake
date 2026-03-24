@@ -21,8 +21,8 @@ function setCanvasSize() {
         canvas.style.height = canvas.height + 'px';
     }
     // Recalculate tile counts
-    tileCountWidth = canvas.width / gridSize;
-    tileCountHeight = canvas.height / gridSize;
+    tileCountWidth = Math.floor(canvas.width / gridSize);
+    tileCountHeight = Math.floor(canvas.height / gridSize);
 }
 
 setCanvasSize();
@@ -44,6 +44,10 @@ let inputQueue = [];
 const startBtn = document.getElementById('startBtn');
 
 startBtn.addEventListener('click', startGame);
+startBtn.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    startGame();
+});
 
 let lastUpdate = 0;
 
@@ -133,7 +137,7 @@ La boucle de jeu principale qui met à jour et dessine le jeu à intervalles ré
 */
 function gameLoop() {
     const now = Date.now();
-    if (now - lastUpdate > 200) {
+    if (now - lastUpdate > 100) {
         update();
         lastUpdate = now;
     }
@@ -174,12 +178,12 @@ document.addEventListener('touchend', (e) => {
     let newDir = null;
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
         // Horizontal swipe
-        if (deltaX > 50 && direction.x === 0) newDir = {x: 1, y: 0}; // Right
-        else if (deltaX < -50 && direction.x === 0) newDir = {x: -1, y: 0}; // Left
+        if (deltaX > 30 && direction.x === 0) newDir = {x: 1, y: 0}; // Right
+        else if (deltaX < -30 && direction.x === 0) newDir = {x: -1, y: 0}; // Left
     } else {
         // Vertical swipe
-        if (deltaY > 50 && direction.y === 0) newDir = {x: 0, y: 1}; // Down
-        else if (deltaY < -50 && direction.y === 0) newDir = {x: 0, y: -1}; // Up
+        if (deltaY > 30 && direction.y === 0) newDir = {x: 0, y: 1}; // Down
+        else if (deltaY < -30 && direction.y === 0) newDir = {x: 0, y: -1}; // Up
     }
     if (newDir) {
         inputQueue.push(newDir);
