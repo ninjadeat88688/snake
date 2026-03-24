@@ -2,8 +2,8 @@ const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 const gridSize = 20;
 
-let tileCountWidth;
-let tileCountHeight;
+let tileCountWidth = 0;
+let tileCountHeight = 0;
 
 // Function to set canvas size
 function setCanvasSize() {
