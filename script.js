@@ -7,19 +7,10 @@ let tileCountHeight = 0;
 
 // Function to set canvas size
 function setCanvasSize() {
-    const isMobile = window.innerWidth < 768;
-    const isLandscape = window.innerHeight < window.innerWidth;
-    if (isMobile && isLandscape) {
-        canvas.width = window.innerWidth - 32;
-        canvas.height = window.innerHeight - 32;
-        canvas.style.width = canvas.width + 'px';
-        canvas.style.height = canvas.height + 'px';
-    } else {
-        canvas.width = Math.min(window.innerWidth - 20, 800);
-        canvas.height = Math.min(window.innerHeight - 20, 600);
-        canvas.style.width = canvas.width + 'px';
-        canvas.style.height = canvas.height + 'px';
-    }
+    canvas.width = window.innerWidth - 32;
+    canvas.height = window.innerHeight - 32;
+    canvas.style.width = canvas.width + 'px';
+    canvas.style.height = canvas.height + 'px';
     // Recalculate tile counts
     tileCountWidth = Math.floor(canvas.width / gridSize);
     tileCountHeight = Math.floor(canvas.height / gridSize);
