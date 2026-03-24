@@ -4,6 +4,9 @@ const gridSize = 20;
 const tileCountWidth = canvas.width / gridSize;
 const tileCountHeight = canvas.height / gridSize;
 
+let appleImage = new Image();
+appleImage.src = 'images/apple.png';
+
 let snake = [{x: 10, y: 10}];
 let direction = {x: 0, y: 0};
 let food = {x: 15, y: 15};
@@ -59,8 +62,12 @@ function draw() {
         ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
     }
     // Fruit
-    ctx.fillStyle = '#ff0000';
-    ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
+    if (appleImage.complete) {
+        ctx.drawImage(appleImage, food.x * gridSize, food.y * gridSize, gridSize, gridSize);
+    } else {
+        ctx.fillStyle = '#ff0000';
+        ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
+    }
     // Score
     ctx.fillStyle = '#ffffff';
     ctx.font = '20px Arial';
