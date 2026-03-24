@@ -1,7 +1,8 @@
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 const gridSize = 20;
-const tileCount = canvas.width / gridSize;
+const tileCountWidth = canvas.width / gridSize;
+const tileCountHeight = canvas.height / gridSize;
 
 let snake = [{x: 10, y: 10}];
 let direction = {x: 0, y: 0};
@@ -39,8 +40,8 @@ function startGame() {
 }
 
 function placeFood() {
-    food.x = Math.floor(Math.random() * tileCount);
-    food.y = Math.floor(Math.random() * tileCount);
+    food.x = Math.floor(Math.random() * tileCountWidth);
+    food.y = Math.floor(Math.random() * tileCountHeight);
     for (let segment of snake) {
         if (segment.x === food.x && segment.y === food.y) {
             placeFood();
@@ -89,7 +90,7 @@ function update() {
     } else {
         snake.pop();
     }
-    if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+    if (head.x < 0 || head.x >= tileCountWidth || head.y < 0 || head.y >= tileCountHeight) {
         gameOver = true;
     }
     for (let i = 1; i < snake.length; i++) {
@@ -106,7 +107,7 @@ function gameLoop() {
     update();
     draw();
     if (!gameOver) {
-        setTimeout(gameLoop, 500);
+        setTimeout(gameLoop, 300);
     }
 }
 
