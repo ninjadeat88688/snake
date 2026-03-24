@@ -82,6 +82,7 @@ function draw() {
     ctx.fillStyle = '#bd04f5';
     for (let segment of snake) {
         ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+        ctx.fillStyle = '#750099';
     }
     // Fruit
     if (appleImage.complete) {
