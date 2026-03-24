@@ -1,11 +1,31 @@
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 const gridSize = 20;
-const tileCountWidth = canvas.width / gridSize;
-const tileCountHeight = canvas.height / gridSize;
+
+// Function to set canvas size
+function setCanvasSize() {
+    const isLandscape = window.innerHeight < window.innerWidth;
+    if (isLandscape) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    } else {
+        canvas.width = Math.min(window.innerWidth - 20, 800);
+        canvas.height = Math.min(window.innerHeight - 20, 600);
+    }
+    // Recalculate tile counts
+    tileCountWidth = canvas.width / gridSize;
+    tileCountHeight = canvas.height / gridSize;
+}
+
+setCanvasSize();
+
+window.addEventListener('resize', setCanvasSize);
+
+let tileCountWidth = canvas.width / gridSize;
+let tileCountHeight = canvas.height / gridSize;
 
 let appleImage = new Image();
-appleImage.src = 'images/apple.png';
+appleImage.src = 'images/Pomme.svg';
 
 let snake = [{x: 10, y: 10}];
 let direction = {x: 0, y: 0};
@@ -120,7 +140,7 @@ La boucle de jeu principale qui met à jour et dessine le jeu à intervalles ré
 */
 function gameLoop() {
     const now = Date.now();
-    if (now - lastUpdate > 300) {
+    if (now - lastUpdate > 200) {
         update();
         lastUpdate = now;
     }
@@ -129,6 +149,9 @@ function gameLoop() {
         requestAnimationFrame(gameLoop);
     }
 }
+
+let touchStartX = 0;
+let touchStartY = 0;
 
 document.addEventListener('keydown', (e) => {
     if (!gameRunning) return;
@@ -140,4 +163,33 @@ document.addEventListener('keydown', (e) => {
     if (newDir) {
         inputQueue.push(newDir);
     }
+});
+
+document.addEventListener('touchstart', (e) => {
+    if (!gameRunning) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    e.preventDefault();
+});
+
+document.addEventListener('touchend', (e) => {
+    if (!gameRunning) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+    let newDir = null;
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Horizontal swipe
+        if (deltaX > 50 && direction.x === 0) newDir = {x: 1, y: 0}; // Right
+        else if (deltaX < -50 && direction.x === 0) newDir = {x: -1, y: 0}; // Left
+    } else {
+        // Vertical swipe
+        if (deltaY > 50 && direction.y === 0) newDir = {x: 0, y: 1}; // Down
+        else if (deltaY < -50 && direction.y === 0) newDir = {x: 0, y: -1}; // Up
+    }
+    if (newDir) {
+        inputQueue.push(newDir);
+    }
+    e.preventDefault();
 });

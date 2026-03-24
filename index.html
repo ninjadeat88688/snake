@@ -6,18 +6,37 @@
     <title>Canvas</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 0;
             background-color: #121212;
             font-family: Arial, sans-serif;
             color: #ffffff;
+            overflow: hidden;
         }
         canvas {
-            border: 2px solid #ffffff;
+            display: block;
             background-color: #1e1e1e;
+            touch-action: none;
+        }
+        @media (orientation: portrait) {
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+            canvas {
+                border: 2px solid #ffffff;
+                max-width: 100vw;
+                max-height: 100vh;
+            }
+        }
+        @media (orientation: landscape) {
+            canvas {
+                width: 100vw;
+                height: 100vh;
+                border: none;
+            }
         }
     </style>
 </head>
