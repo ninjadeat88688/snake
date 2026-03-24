@@ -31,6 +31,8 @@ document.body.appendChild(startBtn);
 
 startBtn.addEventListener('click', startGame);
 
+let lastUpdate = 0;
+
 function startGame() {
     gameRunning = true;
     gameOver = false;
@@ -39,6 +41,7 @@ function startGame() {
     score = 0;
     placeFood();
     startBtn.style.display = 'none';
+    lastUpdate = Date.now();
     gameLoop();
 }
 
@@ -57,7 +60,7 @@ function draw() {
     ctx.fillStyle = '#1e1e1e';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     // Serpent
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = '#bd04f5';
     for (let segment of snake) {
         ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
     }
@@ -111,10 +114,14 @@ function update() {
 La boucle de jeu principale qui met à jour et dessine le jeu à intervalles réguliers.
 */
 function gameLoop() {
-    update();
+    const now = Date.now();
+    if (now - lastUpdate > 300) {
+        update();
+        lastUpdate = now;
+    }
     draw();
     if (!gameOver) {
-        setTimeout(gameLoop, 300);
+        requestAnimationFrame(gameLoop);
     }
 }
 
