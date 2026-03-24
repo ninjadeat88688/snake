@@ -4,13 +4,18 @@ const gridSize = 20;
 
 // Function to set canvas size
 function setCanvasSize() {
+    const isMobile = window.innerWidth < 768;
     const isLandscape = window.innerHeight < window.innerWidth;
-    if (isLandscape) {
+    if (isMobile && isLandscape) {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
     } else {
         canvas.width = Math.min(window.innerWidth - 20, 800);
         canvas.height = Math.min(window.innerHeight - 20, 600);
+        canvas.style.width = canvas.width + 'px';
+        canvas.style.height = canvas.height + 'px';
     }
     // Recalculate tile counts
     tileCountWidth = canvas.width / gridSize;
@@ -48,6 +53,7 @@ startBtn.style.backgroundColor = '#ffffff';
 startBtn.style.color = '#000000';
 startBtn.style.border = 'none';
 startBtn.style.cursor = 'pointer';
+startBtn.style.zIndex = '10';
 document.body.appendChild(startBtn);
 
 startBtn.addEventListener('click', startGame);
