@@ -2,6 +2,9 @@ const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 const gridSize = 20;
 
+let tileCountWidth;
+let tileCountHeight;
+
 // Function to set canvas size
 function setCanvasSize() {
     const isMobile = window.innerWidth < 768;
@@ -26,9 +29,6 @@ setCanvasSize();
 
 window.addEventListener('resize', setCanvasSize);
 
-let tileCountWidth = canvas.width / gridSize;
-let tileCountHeight = canvas.height / gridSize;
-
 let appleImage = new Image();
 appleImage.src = 'images/Pomme.svg';
 
@@ -41,20 +41,7 @@ let gameOver = false;
 let inputQueue = [];
 
 // Bouton de démarrage
-const startBtn = document.createElement('button');
-startBtn.textContent = 'Commencer le jeu';
-startBtn.style.position = 'absolute';
-startBtn.style.top = '50%';
-startBtn.style.left = '50%';
-startBtn.style.transform = 'translate(-50%, -50%)';
-startBtn.style.padding = '10px 20px';
-startBtn.style.fontSize = '20px';
-startBtn.style.backgroundColor = '#ffffff';
-startBtn.style.color = '#000000';
-startBtn.style.border = 'none';
-startBtn.style.cursor = 'pointer';
-startBtn.style.zIndex = '10';
-document.body.appendChild(startBtn);
+const startBtn = document.getElementById('startBtn');
 
 startBtn.addEventListener('click', startGame);
 
