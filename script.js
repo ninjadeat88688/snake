@@ -171,7 +171,10 @@ function draw() {
     }
     // Mettre à jour le bandeau
     const elapsedTime = gameRunning ? Math.floor((Date.now() - startTime) / 1000) : 0;
-    scoreBoard.textContent = `Score: ${score} | Temps joué: ${elapsedTime}s`;
+    const minutes = Math.floor(elapsedTime / 60);
+    const seconds = elapsedTime % 60;
+    const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    scoreBoard.textContent = `Score: ${score} | Temps joué: ${timeString}`;
     if (gameOver) {
         ctx.fillStyle = '#ffffff';
         ctx.font = '40px Arial';
@@ -208,7 +211,20 @@ function update() {
         }
     }
     if (inputQueue.length > 0) {
-        direction = inputQueue.shift();
+        const newDir = inputQueue[0];
+        const newHead = {x: snake[0].x + newDir.x, y: snake[0].y + newDir.y};
+        let collision = false;
+        for (let i = 1; i < snake.length; i++) {
+            if (newHead.x === snake[i].x && newHead.y === snake[i].y) {
+                collision = true;
+                break;
+            }
+        }
+        if (!collision) {
+            direction = inputQueue.shift();
+        } else {
+            inputQueue.shift(); // Discard the invalid move
+        }
     }
 }
 
