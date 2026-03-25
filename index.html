@@ -24,15 +24,21 @@
             align-items: center;
         }
         #scoreBoard {
-            background-color: #1e1e1e;
+            /* background-color: #1e1e1e; */
+            background: linear-gradient(to right, red, purple);
             color: #ffffff;
-            padding: 10px 20px;
+            padding: 10px 0px;
             font-size: 18px;
             border: 2px solid #ffffff;
             margin-bottom: 16px;
             text-align: center;
             width: calc(100vw - 32px);
             max-width: calc(100vw - 32px);
+        }
+        .module {
+            background: #222;
+            color: white;
+            padding: 2rem;
         }
         canvas {
             display: block;
@@ -62,7 +68,11 @@
 </head>
 <body>
     <div id="gameContainer">
-        <div id="scoreBoard">Score: 0 | Temps joué: 0s</div>
+        <div id="scoreBoard">
+            <div class="module">
+                Score: 0 | Temps joué: 0s
+            </div>
+        </div>
         <canvas id="myCanvas"></canvas>
     </div>
     <button id="startBtn">Commencer le jeu</button>
