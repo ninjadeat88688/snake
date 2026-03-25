@@ -55,7 +55,7 @@ let inputQueue = [];
 let startTime = 0;
 
 // Référence au bandeau
-const scoreBoard = document.getElementById('scoreBoard');
+const scoreBoard = document.getElementById('score');
 
 // Bouton de démarrage
 const startBtn = document.getElementById('startBtn');
