@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Canvas</title>
     <style>
         body {
@@ -21,8 +21,13 @@
             display: block;
             background-color: #1e1e1e;
             touch-action: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
             margin: 16px;
             border: 2px solid #ffffff;
+            max-width: calc(100vw - 32px);
+            max-height: calc(100vh - 32px);
         }
         #startBtn {
             position: absolute;
@@ -37,10 +42,10 @@
             cursor: pointer;
             z-index: 10;
         }
-    </style>
+     </style>
 </head>
 <body>
-    <canvas id="myCanvas" width="800" height="600"></canvas>
+    <canvas id="myCanvas"></canvas>
     <button id="startBtn">Commencer le jeu</button>
     <script src="script.js"></script>
 </body>

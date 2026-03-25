@@ -7,18 +7,33 @@ let tileCountHeight = 0;
 
 // Function to set canvas size
 function setCanvasSize() {
-    canvas.width = window.innerWidth - 32;
-    canvas.height = window.innerHeight - 32;
-    canvas.style.width = canvas.width + 'px';
-    canvas.style.height = canvas.height + 'px';
-    // Recalculate tile counts
-    tileCountWidth = Math.floor(canvas.width / gridSize);
-    tileCountHeight = Math.floor(canvas.height / gridSize);
+    // Small delay to ensure viewport has updated on mobile
+    setTimeout(() => {
+        const margin = 32; // 16px * 2
+        canvas.width = window.innerWidth - margin;
+        canvas.height = window.innerHeight - margin;
+        canvas.style.width = canvas.width + 'px';
+        canvas.style.height = canvas.height + 'px';
+        // Recalculate tile counts
+        tileCountWidth = Math.floor(canvas.width / gridSize);
+        tileCountHeight = Math.floor(canvas.height / gridSize);
+        
+        // Reposition start button if visible
+        if (!gameRunning) {
+            startBtn.style.top = '50%';
+            startBtn.style.left = '50%';
+        }
+    }, 100);
 }
 
 setCanvasSize();
 
 window.addEventListener('resize', setCanvasSize);
+// Add orientation change listener for mobile devices
+window.addEventListener('orientationchange', () => {
+    // Delay to allow viewport to update
+    setTimeout(setCanvasSize, 200);
+});
 
 let appleImage = new Image();
 appleImage.src = 'images/Pomme.svg';
@@ -89,7 +104,9 @@ function draw() {
     if (gameOver) {
         ctx.fillStyle = '#ffffff';
         ctx.font = '40px Arial';
-        ctx.fillText('Game Over', canvas.width / 2 - 100, canvas.height / 2 - 100);
+        const gameOverText = 'Game Over';
+        const textWidth = ctx.measureText(gameOverText).width;
+        ctx.fillText(gameOverText, canvas.width / 2 - textWidth / 2, canvas.height / 2 - 50);
         startBtn.style.display = 'block';
         startBtn.textContent = 'Rejouer';
     }
