@@ -1,0 +1,15 @@
+<svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+  <rect width="192" height="192" fill="#121212"/>
+  <!-- Corps du serpent -->
+  <path d="M40 120 Q60 100 80 120 Q100 140 120 120 Q140 100 160 120" stroke="#bd04f5" stroke-width="16" fill="none" stroke-linecap="round"/>
+  <!-- Tête du serpent -->
+  <circle cx="160" cy="120" r="12" fill="#bd04f5"/>
+  <!-- Yeux -->
+  <circle cx="155" cy="115" r="3" fill="#ffffff"/>
+  <circle cx="165" cy="115" r="3" fill="#ffffff"/>
+  <!-- Langue -->
+  <path d="M170 125 Q175 130 172 135" stroke="#ff0000" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Pomme -->
+  <circle cx="60" cy="80" r="8" fill="#ff0000"/>
+  <path d="M60 72 Q58 68 62 68" stroke="#8B0000" stroke-width="1" fill="none"/>
+</svg>
