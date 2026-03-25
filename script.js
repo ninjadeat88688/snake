@@ -10,8 +10,9 @@ function setCanvasSize() {
     // Small delay to ensure viewport has updated on mobile
     setTimeout(() => {
         const margin = 32; // 16px * 2
+        const scoreBoardHeight = 60; // Estimation de la hauteur du bandeau
         canvas.width = window.innerWidth - margin;
-        canvas.height = window.innerHeight - margin;
+        canvas.height = window.innerHeight - margin - scoreBoardHeight;
         canvas.style.width = canvas.width + 'px';
         canvas.style.height = canvas.height + 'px';
         // Recalculate tile counts with margin for easier gameplay near edges
@@ -51,6 +52,10 @@ let score = 0;
 let gameRunning = false;
 let gameOver = false;
 let inputQueue = [];
+let startTime = 0;
+
+// Référence au bandeau
+const scoreBoard = document.getElementById('scoreBoard');
 
 // Bouton de démarrage
 const startBtn = document.getElementById('startBtn');
@@ -70,6 +75,7 @@ function startGame() {
     direction = {x: 0, y: 0};
     score = 0;
     inputQueue = [];
+    startTime = Date.now();
     placeFood();
     startBtn.style.display = 'none';
     lastUpdate = Date.now();
@@ -163,10 +169,9 @@ function draw() {
         ctx.fillStyle = '#ff0000';
         ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
     }
-    // Score
-    ctx.fillStyle = '#ffffff';
-    ctx.font = '20px Arial';
-    ctx.fillText('Score: ' + score, 10, 30);
+    // Mettre à jour le bandeau
+    const elapsedTime = gameRunning ? Math.floor((Date.now() - startTime) / 1000) : 0;
+    scoreBoard.textContent = `Score: ${score} | Temps joué: ${elapsedTime}s`;
     if (gameOver) {
         ctx.fillStyle = '#ffffff';
         ctx.font = '40px Arial';
