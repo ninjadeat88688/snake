@@ -16,8 +16,8 @@ function setCanvasSize() {
         canvas.style.width = canvas.width + 'px';
         canvas.style.height = canvas.height + 'px';
         // Recalculate tile counts with margin for easier gameplay near edges
-        tileCountWidth = Math.floor(canvas.width / gridSize) - 1;
-        tileCountHeight = Math.floor(canvas.height / gridSize) - 1;
+        tileCountWidth = Math.floor(canvas.width / gridSize);
+        tileCountHeight = Math.floor(canvas.height / gridSize);
         
         // Reposition start button if visible
         if (!gameRunning) {
@@ -44,6 +44,9 @@ snakeHeadImage.src = 'images/snake-head.svg';
 
 let snakeBodyImage = new Image();
 snakeBodyImage.src = 'images/snake-body.svg';
+
+let croquePomme = new Audio("son/croquepomme.wav");
+
 
 let snake = [{x: 10, y: 10}];
 let direction = {x: 0, y: 0};
@@ -198,6 +201,7 @@ function update() {
     snake.unshift(head);
     if (head.x === food.x && head.y === food.y) {
         score++;
+        croquePomme.play();
         placeFood();
     } else {
         snake.pop();
