@@ -14,9 +14,9 @@ function setCanvasSize() {
         canvas.height = window.innerHeight - margin;
         canvas.style.width = canvas.width + 'px';
         canvas.style.height = canvas.height + 'px';
-        // Recalculate tile counts
-        tileCountWidth = Math.floor(canvas.width / gridSize);
-        tileCountHeight = Math.floor(canvas.height / gridSize);
+        // Recalculate tile counts with margin for easier gameplay near edges
+        tileCountWidth = Math.floor(canvas.width / gridSize) - 1;
+        tileCountHeight = Math.floor(canvas.height / gridSize) - 1;
         
         // Reposition start button if visible
         if (!gameRunning) {
