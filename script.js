@@ -45,7 +45,7 @@ snakeHeadImage.src = 'images/snake-head.svg';
 let snakeBodyImage = new Image();
 snakeBodyImage.src = 'images/snake-body.svg';
 
-let croquePomme = new Audio("son/croquepomme.wav");
+let croquePomme = new Audio("son/croquepomme.mp3");
 
 
 let snake = [{x: 10, y: 10}];
