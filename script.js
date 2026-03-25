@@ -119,7 +119,37 @@ function draw() {
         } else {
             // Corps du serpent
             if (snakeBodyImage.complete) {
-                ctx.drawImage(snakeBodyImage, segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
+                ctx.save();
+                const centerX = segment.x * gridSize + gridSize / 2;
+                const centerY = segment.y * gridSize + gridSize / 2;
+                ctx.translate(centerX, centerY);
+
+                // Calculer l'angle de rotation pour le corps
+                let angle = 0;
+                const prevSegment = snake[i - 1];
+                const nextSegment = snake[i + 1];
+
+                if (nextSegment) {
+                    // Segment du milieu - s'orienter entre précédent et suivant
+                    const dx = nextSegment.x - prevSegment.x;
+                    const dy = nextSegment.y - prevSegment.y;
+                    if (dx === 1) angle = 0; // horizontal droite
+                    else if (dx === -1) angle = Math.PI; // horizontal gauche
+                    else if (dy === 1) angle = Math.PI / 2; // vertical bas
+                    else if (dy === -1) angle = -Math.PI / 2; // vertical haut
+                } else {
+                    // Dernier segment (queue) - s'orienter par rapport au précédent
+                    const dx = segment.x - prevSegment.x;
+                    const dy = segment.y - prevSegment.y;
+                    if (dx === 1) angle = 0;
+                    else if (dx === -1) angle = Math.PI;
+                    else if (dy === 1) angle = Math.PI / 2;
+                    else if (dy === -1) angle = -Math.PI / 2;
+                }
+
+                ctx.rotate(angle);
+                ctx.drawImage(snakeBodyImage, -gridSize / 2, -gridSize / 2, gridSize, gridSize);
+                ctx.restore();
             } else {
                 ctx.fillStyle = '#750099';
                 ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);

@@ -1,9 +1,10 @@
 <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <pattern id="snakeBodyPattern" patternUnits="userSpaceOnUse" width="4" height="4">
-      <rect width="4" height="4" fill="#bd04f5"/>
-      <rect x="1" y="1" width="2" height="2" fill="#750099"/>
+    <pattern id="snakeBodyPattern" patternUnits="userSpaceOnUse" width="3" height="3">
+      <rect width="3" height="3" fill="#bd04f5"/>
+      <rect x="1" y="1" width="1" height="1" fill="#750099"/>
     </pattern>
   </defs>
-  <rect cx="0" cy="3" width="20" height="14" fill="url(#snakeBodyPattern)"/>
+  <!-- Corps plus étroit et centré -->
+  <rect x="2" y="2" width="16" height="16" fill="url(#snakeBodyPattern)" rx="2"/>
 </svg>
