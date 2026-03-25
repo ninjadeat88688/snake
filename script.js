@@ -38,6 +38,12 @@ window.addEventListener('orientationchange', () => {
 let appleImage = new Image();
 appleImage.src = 'images/Pomme.svg';
 
+let snakeHeadImage = new Image();
+snakeHeadImage.src = 'images/snake-head.svg';
+
+let snakeBodyImage = new Image();
+snakeBodyImage.src = 'images/snake-body.svg';
+
 let snake = [{x: 10, y: 10}];
 let direction = {x: 0, y: 0};
 let food = {x: 15, y: 15};
@@ -85,10 +91,40 @@ function draw() {
     ctx.fillStyle = '#1e1e1e';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     // Serpent
-    ctx.fillStyle = '#bd04f5';
-    for (let segment of snake) {
-        ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
-        ctx.fillStyle = '#750099';
+    for (let i = 0; i < snake.length; i++) {
+        const segment = snake[i];
+        if (i === 0) {
+            // Tête du serpent
+            if (snakeHeadImage.complete) {
+                ctx.save();
+                // Positionner au centre du segment
+                const centerX = segment.x * gridSize + gridSize / 2;
+                const centerY = segment.y * gridSize + gridSize / 2;
+                ctx.translate(centerX, centerY);
+
+                // Calculer l'angle de rotation selon la direction
+                let angle = 0;
+                if (direction.x === 1) angle = 0; // droite
+                else if (direction.x === -1) angle = Math.PI; // gauche
+                else if (direction.y === -1) angle = -Math.PI / 2; // haut
+                else if (direction.y === 1) angle = Math.PI / 2; // bas
+
+                ctx.rotate(angle);
+                ctx.drawImage(snakeHeadImage, -gridSize / 2, -gridSize / 2, gridSize, gridSize);
+                ctx.restore();
+            } else {
+                ctx.fillStyle = '#bd04f5';
+                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+            }
+        } else {
+            // Corps du serpent
+            if (snakeBodyImage.complete) {
+                ctx.drawImage(snakeBodyImage, segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
+            } else {
+                ctx.fillStyle = '#750099';
+                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+            }
+        }
     }
     // Fruit
     if (appleImage.complete) {
