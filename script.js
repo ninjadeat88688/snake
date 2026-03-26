@@ -10,9 +10,9 @@ function setCanvasSize() {
     // Small delay to ensure viewport has updated on mobile
     setTimeout(() => {
         let margin = 3; // 16px * 2
-        const scoreBoardHeight = 60; // Estimation de la hauteur du bandeau
+        const scoreBoardHeight = 60+80; // Estimation de la hauteur du bandeau
 
-        let newWidth = window.innerWidth - margin;
+        let newWidth = window.innerWidth - margin-20;
         let newHeight = window.innerHeight - margin - scoreBoardHeight;
         
         // Recalculate tile counts with margin for easier gameplay near edges
