@@ -15,7 +15,7 @@ function setCanvasSize() {
         let newWidth = window.innerWidth - margin;
         let newHeight = window.innerHeight - margin - scoreBoardHeight;
         
-                // Recalculate tile counts with margin for easier gameplay near edges
+        // Recalculate tile counts with margin for easier gameplay near edges
         tileCountWidth = Math.floor(newWidth / gridSize);
         tileCountHeight = Math.floor(newHeight / gridSize);
 
@@ -25,8 +25,8 @@ function setCanvasSize() {
         let marginHeight = Math.floor((window.innerHeight - tileCountHeightpx - scoreBoardHeight) / 2);
         canvas.width = tileCountWidthpx;
         canvas.height = tileCountHeightpx - scoreBoardHeight;
-        canvas.style.width = tileCountWidthpx + 'px';
-        canvas.style.height = tileCountHeightpx + 'px';
+        // canvas.style.width = tileCountWidthpx + 'px';
+        // canvas.style.height = tileCountHeightpx + 'px';
 
         
         // Reposition start button if visible
