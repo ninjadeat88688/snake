@@ -23,8 +23,8 @@ function setCanvasSize() {
         let tileCountHeightpx = tileCountHeight * gridSize;
         let marginWidth = Math.floor((window.innerWidth - tileCountWidthpx) / 2);
         let marginHeight = Math.floor((window.innerHeight - tileCountHeightpx - scoreBoardHeight) / 2);
-        canvas.width = tileCountWidthpx - marginWidth;
-        canvas.height = tileCountHeightpx - marginHeight - scoreBoardHeight;
+        canvas.width = tileCountWidthpx;
+        canvas.height = tileCountHeightpx - scoreBoardHeight;
         canvas.style.width = tileCountWidthpx + 'px';
         canvas.style.height = tileCountHeightpx + 'px';
 
