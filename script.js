@@ -165,28 +165,44 @@ function draw() {
             }
         }
     }
-    // Fruit
+    
+    printFruit();
+
+    // Mettre à jour le bandeau
+    updateScoreBoard();
+
+    printGameOver();
+}
+
+function printFruit() {
+// Fruit
     if (appleImage.complete) {
         ctx.drawImage(appleImage, food.x * gridSize, food.y * gridSize, gridSize, gridSize);
-    } else {
-        ctx.fillStyle = '#ff0000';
-        ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
-    }
-    // Mettre à jour le bandeau
+        return;
+    } 
+        
+    ctx.fillStyle = '#ff0000';
+    ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
+}
+
+function updateScoreBoard() {
     const elapsedTime = gameRunning ? Math.floor((Date.now() - startTime) / 1000) : 0;
     const minutes = Math.floor(elapsedTime / 60);
     const seconds = elapsedTime % 60;
     const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
     scoreBoard.textContent = `Score: ${score} | Temps joué: ${timeString}`;
-    if (gameOver) {
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '40px Arial';
-        const gameOverText = 'Game Over';
-        const textWidth = ctx.measureText(gameOverText).width;
-        ctx.fillText(gameOverText, canvas.width / 2 - textWidth / 2, canvas.height / 2 - 40);
-        startBtn.style.display = 'block';
-        startBtn.textContent = 'Rejouer';
-    }
+}
+
+function printGameOver() {
+ if (!gameOver) return;
+
+ ctx.fillStyle = '#ffffff';
+ ctx.font = '40px Arial';
+ const gameOverText = 'Game Over';
+ const textWidth = ctx.measureText(gameOverText).width;
+ ctx.fillText(gameOverText, canvas.width / 2 - textWidth / 2, canvas.height / 2 - 40);
+ startBtn.style.display = 'block';
+ startBtn.textContent = 'Rejouer';
 }
 
 /*
@@ -196,9 +212,14 @@ Si le serpent mange la nourriture, le score augmente et une nouvelle nourriture 
 Si le serpent entre en collision avec un mur ou lui-même, le jeu se termine.
 */
 function update() {
+    // si je ne suis pas en partie ou que j'ai perdu je ne re dessine pas
     if (!gameRunning || gameOver) return;
+
+    // Calculer la nouvelle position de la tête du serpent en fonction de la direction actuelle
     const head = {x: snake[0].x + direction.x, y: snake[0].y + direction.y};
     snake.unshift(head);
+
+    // Vérifier si le serpent a mangé la nourriture
     if (head.x === food.x && head.y === food.y) {
         score++;
         croquePomme.play();
@@ -206,14 +227,19 @@ function update() {
     } else {
         snake.pop();
     }
+
+    // Vérifier les collisions avec les murs et le corps du serpent
     if (head.x < 0 || head.x >= tileCountWidth || head.y < 0 || head.y >= tileCountHeight) {
         gameOver = true;
     }
+
+    // Vérifier les collisions avec le corps du serpent
     for (let i = 1; i < snake.length; i++) {
         if (head.x === snake[i].x && head.y === snake[i].y) {
             gameOver = true;
         }
     }
+
     if (inputQueue.length > 0) {
         const newDir = inputQueue[0];
         const newHead = {x: snake[0].x + newDir.x, y: snake[0].y + newDir.y};
@@ -250,6 +276,7 @@ function gameLoop() {
 let touchStartX = 0;
 let touchStartY = 0;
 
+// Gestion des entrées clavier pour les flèches directionnelles
 document.addEventListener('keydown', (e) => {
     if (!gameRunning) return;
     let newDir = null;
@@ -262,6 +289,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// Gestion des entrées tactiles pour les swipes sur mobile
 document.addEventListener('touchstart', (e) => {
     if (!gameRunning) return;
     touchStartX = e.touches[0].clientX;
