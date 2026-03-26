@@ -10,9 +10,9 @@ function setCanvasSize() {
     // Small delay to ensure viewport has updated on mobile
     setTimeout(() => {
         let margin = 3; // 16px * 2
-        const scoreBoardHeight = 60+80; // Estimation de la hauteur du bandeau
+        const scoreBoardHeight = 60; // Estimation de la hauteur du bandeau
 
-        let newWidth = window.innerWidth - margin-20;
+        let newWidth = window.innerWidth - margin;
         let newHeight = window.innerHeight - margin - scoreBoardHeight;
         
         // Recalculate tile counts with margin for easier gameplay near edges
@@ -23,8 +23,8 @@ function setCanvasSize() {
         let tileCountHeightpx = tileCountHeight * gridSize;
         let marginWidth = Math.floor((window.innerWidth - tileCountWidthpx) / 2);
         let marginHeight = Math.floor((window.innerHeight - tileCountHeightpx - scoreBoardHeight) / 2);
-        canvas.width = tileCountWidthpx -marginWidth ;
-        canvas.height = tileCountHeightpx-marginHeight;
+        canvas.width = tileCountWidthpx -marginWidth -20 ;
+        canvas.height = tileCountHeightpx-marginHeight -80;
         // canvas.style.width = tileCountWidthpx + 'px';
         // canvas.style.height = tileCountHeightpx + 'px';
 
