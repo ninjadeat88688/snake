@@ -183,7 +183,7 @@ function draw() {
         ctx.font = '40px Arial';
         const gameOverText = 'Game Over';
         const textWidth = ctx.measureText(gameOverText).width;
-        ctx.fillText(gameOverText, canvas.width / 2 - textWidth / 2, canvas.height / 2 - 50);
+        ctx.fillText(gameOverText, canvas.width / 2 - textWidth / 2, canvas.height / 2 - 40);
         startBtn.style.display = 'block';
         startBtn.textContent = 'Rejouer';
     }
