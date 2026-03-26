@@ -21,10 +21,10 @@ function setCanvasSize() {
 
         let tileCountWidthpx = tileCountWidth * gridSize;
         let tileCountHeightpx = tileCountHeight * gridSize;
-        let marginWidth = Math.floor((window.innerWidth - tileCountWidthpx) / 2);
-        let marginHeight = Math.floor((window.innerHeight - tileCountHeightpx - scoreBoardHeight) / 2);
-        canvas.width = tileCountWidthpx -marginWidth -20 ;
-        canvas.height = tileCountHeightpx-marginHeight -80;
+        // let marginWidth = Math.floor((window.innerWidth - tileCountWidthpx) / 2);
+        // let marginHeight = Math.floor((window.innerHeight - tileCountHeightpx - scoreBoardHeight) / 2);
+        canvas.width = tileCountWidthpx;
+        canvas.height = tileCountHeightpx;
         // canvas.style.width = tileCountWidthpx + 'px';
         // canvas.style.height = tileCountHeightpx + 'px';
 
