@@ -9,15 +9,25 @@ let tileCountHeight = 0;
 function setCanvasSize() {
     // Small delay to ensure viewport has updated on mobile
     setTimeout(() => {
-        const margin = 32; // 16px * 2
+        let margin = 32; // 16px * 2
         const scoreBoardHeight = 60; // Estimation de la hauteur du bandeau
-        canvas.width = window.innerWidth - margin;
-        canvas.height = window.innerHeight - margin - scoreBoardHeight;
-        canvas.style.width = canvas.width + 'px';
-        canvas.style.height = canvas.height + 'px';
-        // Recalculate tile counts with margin for easier gameplay near edges
-        tileCountWidth = Math.floor(canvas.width / gridSize);
-        tileCountHeight = Math.floor(canvas.height / gridSize);
+
+        let newWidth = window.innerWidth - margin;
+        let newHeight = window.innerHeight - margin - scoreBoardHeight;
+        
+                // Recalculate tile counts with margin for easier gameplay near edges
+        tileCountWidth = Math.floor(newWidth / gridSize);
+        tileCountHeight = Math.floor(newHeight / gridSize);
+
+        let tileCountWidthpx = tileCountWidth * gridSize;
+        let tileCountHeightpx = tileCountHeight * gridSize;
+        let marginWidth = Math.floor((window.innerWidth - tileCountWidthpx) / 2);
+        let marginHeight = Math.floor((window.innerHeight - tileCountHeightpx - scoreBoardHeight) / 2);
+        canvas.width = tileCountWidthpx - marginWidth;
+        canvas.height = tileCountHeightpx - marginHeight;
+        canvas.style.width = tileCountWidthpx + 'px';
+        canvas.style.height = tileCountHeightpx + 'px';
+
         
         // Reposition start button if visible
         if (!gameRunning) {
@@ -107,8 +117,9 @@ function draw() {
             if (snakeHeadImage.complete) {
                 ctx.save();
                 // Positionner au centre du segment
-                const centerX = segment.x * gridSize + gridSize / 2;
-                const centerY = segment.y * gridSize + gridSize / 2;
+                const middleGrid = gridSize / 2;
+                const centerX = segment.x * gridSize + middleGrid;
+                const centerY = segment.y * gridSize + middleGrid;
                 ctx.translate(centerX, centerY);
 
                 // Calculer l'angle de rotation selon la direction
@@ -119,7 +130,7 @@ function draw() {
                 else if (direction.y === 1) angle = Math.PI / 2; // bas
 
                 ctx.rotate(angle);
-                ctx.drawImage(snakeHeadImage, -gridSize / 2, -gridSize / 2, gridSize, gridSize);
+                ctx.drawImage(snakeHeadImage, -middleGrid, -middleGrid, gridSize, gridSize);
                 ctx.restore();
             } else {
                 ctx.fillStyle = '#bd04f5';
